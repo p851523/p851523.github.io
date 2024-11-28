@@ -64,10 +64,13 @@
 				function tint(img, col) {
 					let ofc = new OffscreenCanvas(img.width, img.height);
 					let ofx = ofc.getContext("2d");
+					ofx.filter = "invert(1)";
 					ofx.drawImage(img, 0, 0);
-					ofx.globalCompositeOperation = "hue";
+					ofx.filter = "none";
+					ofx.globalCompositeOperation = "lighter";
 					ofx.fillStyle = col;
 					ofx.fillRect(0, 0, img.width, img.height);
+					ofx.filter = "invert(1)";
 					return ofc;
 				};
 				

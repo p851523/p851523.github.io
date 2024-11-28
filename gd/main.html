@@ -41,23 +41,26 @@
 				
 				const imgs = document.getElementsByTagName("img");
 				const canv = document.getElementById("canvas").getContext("2d");
-				
-				function tintimg(htmlimg, col) { //col = str with hexcode
-					let ofc = new OffscreenCanvas(htmlimg.width, htmlimg.height);
-					let ofx = ofc.getContext("2d");
-					ofx.drawImage(htmlimg, 0, 0);
-					ofx.clip('evenodd');
-					ofx.globalCompositeOperation = "difference";
-					ofx.fillStyle = '#FFFFFF';
-					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
-					ofx.globalCompositeOperation = "lighter";
-					ofx.fillStyle = col;
-					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
-					ofx.globalCompositeOperation = "difference";
-					ofx.fillStyle = '#FFFFFF';
-					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
-					//ofx.globalCompositeOperation = "source-over";
-					return ofc;
+
+				const colorize = (image, r, g, b) => { // https://medium.com/@mpias/html-canvas-how-to-colorize-a-sprite-3150195021bf
+					const imageSize = image.width;
+					
+					const offscreen = new OffscreenCanvas(imageSize, imageSize);
+					const ctx = offscreen.getContext("2d");
+
+					ctx.drawImage(image, 0, 0);
+
+					const imageData = ctx.getImageData(0, 0, imageSize, imageSize);
+
+					for (let i = 0; i < imageData.data.length; i += 4) {
+						imageData.data[i + 0] *= r;
+						imageData.data[i + 1] *= g;
+						imageData.data[i + 2] *= b;
+					}
+
+					ctx.putImageData(imageData, 0, 0);
+					
+					return offscreen;
 				};
 				
 				setInterval(function () {
@@ -95,7 +98,7 @@
 					canv.drawImage(imgs[0], 900, 420, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
 					
 					//canv.drawImage(imgs[0], 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
-					canv.drawImage(tintimg(imgs[0], '#FF0000'), 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					canv.drawImage(colorize(imgs[0], 255, 0, 0), 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
 					
 					canv.setTransform(1, 0, 0, 1, 0, 0);
 					

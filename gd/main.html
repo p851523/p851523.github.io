@@ -42,7 +42,7 @@
 				const imgs = document.getElementsByTagName("img");
 				const canv = document.getElementById("canvas").getContext("2d");
 				
-				const colorize = (image, r, g, b) => { // https://medium.com/@mpias/html-canvas-how-to-colorize-a-sprite-3150195021bf
+				/*const colorize = (image, r, g, b) => { // https://medium.com/@mpias/html-canvas-how-to-colorize-a-sprite-3150195021bf ; too laggy - only use once at a time
 					const offscreen = new OffscreenCanvas(image.width, image.height);
 					const ctx = offscreen.getContext("2d");
 					
@@ -59,15 +59,13 @@
 					ctx.putImageData(imageData, 0, 0);
 					
 					return offscreen;
-				};
+				};*/
 				
 				function tint(img, col) {
 					let ofc = new OffscreenCanvas(img.width, img.height);
 					let ofx = ofc.getContext("2d");
 					ofx.drawImage(img, 0, 0);
-					ofx.globalCompositeOperation = "screen";
-					ofx.fillStyle = col;
-					ofx.fillRect(0, 0, img.width, img.height);
+					ofx.filter = "sepia(1)";
 					return ofc;
 				};
 				

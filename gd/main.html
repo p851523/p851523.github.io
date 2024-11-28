@@ -50,7 +50,7 @@
 					ofx.fillStyle = '#FFFFFF';
 					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
 					ofx.globalCompositeOperation = "lighter";
-					ofx.fillStyle = '#' + col[0].toString(16) + col[1].toString(16) + col[2].toString(16);
+					ofx.fillStyle = col;
 					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
 					//ofx.globalCompositeOperation = "source-over";
 					return ofc;
@@ -91,7 +91,7 @@
 					canv.drawImage(imgs[0], 900, 420, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
 					
 					//canv.drawImage(imgs[0], 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
-					canv.drawImage(tintimg(imgs[0], [255, 0, 0]), 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					canv.drawImage(tintimg(imgs[0], '#FF0000'), 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
 					
 					canv.setTransform(1, 0, 0, 1, 0, 0);
 					

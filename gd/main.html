@@ -37,29 +37,33 @@
 				
 				var cam = {x: 0, y: 0};
 				var lvl = [{x: 0, y: 0},{x: 1, y: 2}];
+				var colors = {bg: '#0099FF', grnd: '#0055BB'};
 				var player = {x: -1024, y: 0, xs: 10, ys: 0, r: 0, rs: 0, ground: false, grav: -1};
 				
 				const imgs = document.getElementsByTagName("img");
 				const canv = document.getElementById("canvas").getContext("2d");
 				
-				/*const colorize = (image, r, g, b) => { // https://medium.com/@mpias/html-canvas-how-to-colorize-a-sprite-3150195021bf ; too laggy - only use once at a time
-					const offscreen = new OffscreenCanvas(image.width, image.height);
-					const ctx = offscreen.getContext("2d");
-					
-					ctx.drawImage(image, 0, 0);
-					
-					const imageData = ctx.getImageData(0, 0, image.width, image.height);
-					
-					for (let i = 0; i < imageData.data.length; i += 4) {
-						imageData.data[i + 0] *= r;
-						imageData.data[i + 1] *= g;
-						imageData.data[i + 2] *= b;
+				// https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
+				function invertColor(hex) {
+					if (hex.indexOf('#') === 0) {
+						hex = hex.slice(1);
 					}
-					
-					ctx.putImageData(imageData, 0, 0);
-					
-					return offscreen;
-				};*/
+					if (hex.length === 3) {
+						hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+					}
+					if (hex.length !== 6) {
+						throw new Error('Invalid HEX color.');
+					}
+					var r = (255 - parseInt(hex.slice(0, 2), 16)).toString(16),
+						g = (255 - parseInt(hex.slice(2, 4), 16)).toString(16),
+						b = (255 - parseInt(hex.slice(4, 6), 16)).toString(16);
+					return '#' + padZero(r) + padZero(g) + padZero(b);
+				}
+				function padZero(str, len) {
+					len = len || 2;
+					var zeros = new Array(len).join('0');
+					return (zeros + str).slice(-len);
+				}
 				
 				function tint(img, col) {
 					let ofc = new OffscreenCanvas(img.width, img.height);
@@ -68,11 +72,10 @@
 					ofx.drawImage(img, 0, 0);
 					ofx.filter = "none";
 					ofx.globalCompositeOperation = "lighter";
-					ofx.fillStyle = col;
+					ofx.fillStyle = invertColor(col);
 					ofx.fillRect(0, 0, img.width, img.height);
 					let ofc2 = new OffscreenCanvas(img.width, img.height);
 					let ofx2 = ofc2.getContext("2d");
-					ofx2.globalCompositeOperation = "copy";
 					ofx2.drawImage(img, 0, 0);
 					ofx2.globalCompositeOperation = "source-in";
 					ofx2.filter = "invert(1)";
@@ -98,7 +101,7 @@
 					
 					//draw bg
 					for (let i = 0; i < 3; i++) {
-						canv.drawImage(imgs[4], i * 1536 - ((cam.x / 5) % 1536) - 1024, cam.y / 5 - 1024, 1536, 1536);
+						canv.drawImage(tint(imgs[4], colors.bg), i * 1536 - ((cam.x / 5) % 1536) - 1024, cam.y / 5 - 1024, 1536, 1536);
 					};
 					
 					//draw level
@@ -112,16 +115,14 @@
 					canv.rotate(player.r * Math.PI / 180);
 					canv.translate(-(player.x - cam.x + 30), -(cam.y - player.y - 60 + 30));
 					
-					canv.drawImage(imgs[0], 900, 420, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
-					
-					//canv.drawImage(imgs[0], 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					canv.drawImage(tint(imgs[0], '#00FF00'), 900, 420, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
 					canv.drawImage(tint(imgs[0], '#FF0000'), 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
 					
 					canv.setTransform(1, 0, 0, 1, 0, 0);
 					
 					//draw grnd
 					for (let i = -1; i < 10; i++) {
-						canv.drawImage(imgs[5], i * 256 - (cam.x % 256), cam.y, 256, 256);
+						canv.drawImage(tint(imgs[5], colors.grnd), i * 256 - (cam.x % 256), cam.y, 256, 256);
 					};
 				}, 33)
 			}, 1000); });

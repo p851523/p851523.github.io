@@ -68,7 +68,7 @@
 					return ofc;
 				};*/
 				
-				const colorize = (image, r, g, b) => { // https://medium.com/@mpias/html-canvas-how-to-colorize-a-sprite-3150195021bf ; too laggy - only use once at a time
+				const tint = (image, r, g, b) => { // https://medium.com/@mpias/html-canvas-how-to-colorize-a-sprite-3150195021bf ; too laggy - only use once at a time
 					const offscreen = new OffscreenCanvas(image.width, image.height);
 					const ctx = offscreen.getContext("2d");
 					

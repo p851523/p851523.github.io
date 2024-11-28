@@ -42,21 +42,16 @@
 				const imgs = document.getElementsByTagName("img");
 				const canv = document.getElementById("canvas").getContext("2d");
 				
-				function tintimg(htmlimg, col) { //example of col: [255, 0, 0] also redo the color system
+				function tintimg(htmlimg, col) { //col = str with hexcode
 					let ofc = new OffscreenCanvas(htmlimg.width, htmlimg.height);
 					let ofx = ofc.getContext("2d");
-					ofx.filter = "grayscale(1)";
+					ofx.filter = "invert(1)";
 					ofx.drawImage(htmlimg, 0, 0);
 					ofx.filter = "none";
-					for (let i = 0; i < 3; i++) {
-						col[i] = 255 - col[i];
-					};
+					ofx.globalCompositeOperation = "lighter";
 					ofx.fillStyle = '#' + col[0].toString(16) + col[1].toString(16) + col[2].toString(16);
-					ofx.globalCompositeOperation = "difference";
 					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
-					ofx.globalCompositeOperation = "source-over";
-					//let newimg = new Image(htmlimg.width, htmlimg.height);
-					//newimg.src = ofc.convertToBlob().then((blob) => console.log(blob)); //ofx.getImageData(0, 0, htmlimg.width, htmlimg.height);
+					//ofx.globalCompositeOperation = "source-over";
 					return ofc;
 				};
 				

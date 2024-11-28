@@ -71,6 +71,8 @@
 					ofx.fillStyle = col;
 					ofx.fillRect(0, 0, img.width, img.height);
 					ofx.filter = "invert(1)";
+					ofx.globalCompositeOperation = "copy";
+					ofx.putImageData(ofx.getImageData(0, 0, img.width, img.height), 0, 0);
 					return ofc;
 				};
 				

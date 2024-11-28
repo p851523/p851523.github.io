@@ -57,7 +57,6 @@
 					ofx.globalCompositeOperation = "source-over";
 					let newimg = new Image(htmlimg.width, htmlimg.height);
 					newimg.src = ofx.getImageData(0, 0, htmlimg.width, htmlimg.height);
-					ofc.remove();
 					return newimg;
 				};
 				

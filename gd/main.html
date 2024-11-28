@@ -65,7 +65,7 @@
 					let ofc = new OffscreenCanvas(img.width, img.height);
 					let ofx = ofc.getContext("2d");
 					ofx.drawImage(img, 0, 0);
-					ofx.globalCompositeOperation = "multiply";
+					ofx.globalCompositeOperation = "screen";
 					ofx.fillStyle = col;
 					ofx.fillRect(0, 0, img.width, img.height);
 					return ofc;

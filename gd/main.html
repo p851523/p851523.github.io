@@ -42,7 +42,7 @@
 				const imgs = document.getElementsByTagName("img");
 				const canv = document.getElementById("canvas").getContext("2d");
 				
-				function tintimg(htmlimg, col) { //example of col: [255, 0, 0]
+				function tintimg(htmlimg, col) { //example of col: [255, 0, 0] also redo the color system
 					let ofc = new OffscreenCanvas(htmlimg.width, htmlimg.height);
 					let ofx = ofc.getContext("2d");
 					ofx.filter = "grayscale(1)";
@@ -55,9 +55,9 @@
 					ofx.globalCompositeOperation = "difference";
 					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
 					ofx.globalCompositeOperation = "source-over";
-					let newimg = new Image(htmlimg.width, htmlimg.height);
-					newimg.src = ofc.convertToBlob().then((blob) => console.log(blob)); //ofx.getImageData(0, 0, htmlimg.width, htmlimg.height);
-					return newimg;
+					//let newimg = new Image(htmlimg.width, htmlimg.height);
+					//newimg.src = ofc.convertToBlob().then((blob) => console.log(blob)); //ofx.getImageData(0, 0, htmlimg.width, htmlimg.height);
+					return ofc.toDataURL();
 				};
 				
 				setInterval(function () {

@@ -70,9 +70,12 @@
 					ofx.globalCompositeOperation = "lighter";
 					ofx.fillStyle = col;
 					ofx.fillRect(0, 0, img.width, img.height);
-					ofx.filter = "invert(1)";
+					let newimg = ofx.getImageData(0, 0, img.width, img.height);
 					ofx.globalCompositeOperation = "copy";
-					ofx.putImageData(ofx.getImageData(0, 0, img.width, img.height), 0, 0);
+					ofx.drawImage(img, 0, 0);
+					ofx.filter = "invert(1)";
+					ofx.globalCompositeOperation = "source-in";
+					ofx.putImageData(newimg, 0, 0);
 					return ofc;
 				};
 				

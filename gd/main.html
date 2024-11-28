@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+	<head>
+		<title>gd</title>
+	</head>
+	<body oncontextmenu="return false" style="margin: 0px; height: 100%; overflow: hidden; background-color: #222; user-select: none">
+		<style>
+			img {
+				display: none
+			}
+		</style>
+		<img crossorigin="anonymous" src="assets/gs.png">
+		<img crossorigin="anonymous" src="assets/ls.png">
+		<img crossorigin="anonymous" src="assets/gl.png">
+		<img crossorigin="anonymous" src="assets/fl.png">
+		<img crossorigin="anonymous" src="assets/bg/0.png">
+		<img crossorigin="anonymous" src="assets/grnd/0.png">
+		
+		<div style="width: 100%; height: 100%; display: flex; justify-content: center">
+			<canvas id="canvas" width="2160" height="720" style="aspect-ratio: 3 / 1; height: 100%/*; image-rendering: pixelated*/"></canvas>
+		</div>
+		<script>
+			window.addEventListener("load", function () { setTimeout(function () {
+				//player can see 12 blocks in height, 1 block is 60x60 px
+				
+				var mousedown = false;
+				document.addEventListener("mousedown", function (e) {
+					if (e.button == 0) { //if its leftclick
+						mousedown = true;
+					}
+				});
+				document.addEventListener("mouseup", function (e) {
+					if (e.button == 0) { //if its leftclick
+						mousedown = false;
+					}
+				});
+				
+				var cam = {x: 0, y: 0};
+				var lvl = [{x: 0, y: 0},{x: 1, y: 2}];
+				var player = {x: -1024, y: 0, xs: 10, ys: 0, r: 0, rs: 0, ground: false, grav: -1};
+				
+				const imgs = document.getElementsByTagName("img");
+				const canv = document.getElementById("canvas").getContext("2d");
+				
+				function tintimg(htmlimg, col) { //example of col: [255, 0, 0]
+					let ofc = new OffscreenCanvas(htmlimg.width, htmlimg.height);
+					let ofx = ofc.getContext("2d");
+					ofx.filter = "grayscale(1)";
+					ofx.drawImage(htmlimg, 0, 0);
+					ofx.filter = "none";
+					for (let i = 0; i < 3; i++) {
+						col[i] = 255 - col[i];
+					};
+					ofx.fillStyle = '#' + col[0].toString(16) + col[1].toString(16) + col[2].toString(16);
+					ofx.globalCompositeOperation = "difference";
+					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
+					ofx.globalCompositeOperation = "source-over";
+					return ofx.getImageData(0, 0, htmlimg.width, htmlimg.height);
+				};
+				
+				setInterval(function () {
+					player.ys += player.grav;
+					
+					if (mousedown) {
+						player.ys = 7;
+					};
+					
+					player.x += player.xs;
+					
+					player.r += player.rs;
+					player.r %= 360;
+					
+					cam.x = player.x - 780;
+					cam.y = player.y + 542;
+					
+					
+					//draw bg
+					for (let i = 0; i < 3; i++) {
+						canv.drawImage(imgs[4], i * 1536 - ((cam.x / 5) % 1536) - 1024, cam.y / 5 - 1024, 1536, 1536);
+					};
+					
+					//draw level
+					//canv.globalCompositeOperation = "lighter"; //blending
+					for (let i of lvl) {
+						canv.drawImage(imgs[0], 0, 0, 60, 60, i.x * 60 - cam.x, cam.y - i.y * 60 - 60, 60, 60);
+					};
+					
+					//draw player
+					canv.translate(player.x - cam.x + 30, cam.y - player.y - 60 + 30);
+					canv.rotate(player.r * Math.PI / 180);
+					canv.translate(-(player.x - cam.x + 30), -(cam.y - player.y - 60 + 30));
+					
+					canv.drawImage(imgs[0], 900, 420, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					
+					//canv.drawImage(imgs[0], 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					canv.drawImage(tintimg(imgs[0], [255, 0, 0]), 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					
+					canv.setTransform(1, 0, 0, 1, 0, 0);
+					
+					//draw grnd
+					for (let i = -1; i < 10; i++) {
+						canv.drawImage(imgs[5], i * 256 - (cam.x % 256), cam.y, 256, 256);
+					};
+				}, 33)
+			}, 1000); });
+		</script>
+	</body>
+</html>

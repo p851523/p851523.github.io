@@ -52,7 +52,9 @@
 					ofx.globalCompositeOperation = "lighter";
 					ofx.fillStyle = col;
 					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
-					ofx.filter = "invert(1)";
+					ofx.globalCompositeOperation = "difference";
+					ofx.fillStyle = '#FFFFFF';
+					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
 					//ofx.globalCompositeOperation = "source-over";
 					return ofc;
 				};

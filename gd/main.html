@@ -56,8 +56,8 @@
 					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
 					ofx.globalCompositeOperation = "source-over";
 					let newimg = new Image(htmlimg.width, htmlimg.height);
-					newimg.src = ofx.getImageData(0, 0, htmlimg.width, htmlimg.height);
 					console.log(newimg);
+					newimg.src = ofx.getImageData(0, 0, htmlimg.width, htmlimg.height);
 					return newimg;
 				};
 				

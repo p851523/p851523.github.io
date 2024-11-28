@@ -46,6 +46,9 @@
 					let ofc = new OffscreenCanvas(htmlimg.width, htmlimg.height);
 					let ofx = ofc.getContext("2d");
 					ofx.drawImage(htmlimg, 0, 0);
+					ofx.beginPath();
+					ofx.drawImage(htmlimg, 0, 0);
+					ofx.clip();
 					ofx.globalCompositeOperation = "difference";
 					ofx.fillStyle = '#FFFFFF';
 					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);

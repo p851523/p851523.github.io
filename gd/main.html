@@ -55,7 +55,9 @@
 					ofx.globalCompositeOperation = "difference";
 					ofx.fillRect(0, 0, htmlimg.width, htmlimg.height);
 					ofx.globalCompositeOperation = "source-over";
-					return ofx.getImageData(0, 0, htmlimg.width, htmlimg.height);
+					ofx = ofx.getImageData(0, 0, htmlimg.width, htmlimg.height)
+					ofc.remove();
+					return ofx;
 				};
 				
 				setInterval(function () {

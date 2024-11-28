@@ -70,13 +70,14 @@
 					ofx.globalCompositeOperation = "lighter";
 					ofx.fillStyle = col;
 					ofx.fillRect(0, 0, img.width, img.height);
-					let newimg = ofx.getImageData(0, 0, img.width, img.height);
-					ofx.globalCompositeOperation = "copy";
-					ofx.drawImage(img, 0, 0);
-					ofx.filter = "invert(1)";
-					ofx.globalCompositeOperation = "source-in";
-					ofx.putImageData(newimg, 0, 0);
-					return ofc;
+					let ofc2 = new OffscreenCanvas(img.width, img.height);
+					let ofx2 = ofc2.getContext("2d");
+					ofx2.globalCompositeOperation = "copy";
+					ofx2.drawImage(img, 0, 0);
+					ofx2.globalCompositeOperation = "source-in";
+					ofx2.filter = "invert(1)";
+					ofx2.drawImage(ofc, 0, 0);
+					return ofc2;
 				};
 				
 				setInterval(function () {

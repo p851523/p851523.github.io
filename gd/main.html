@@ -65,7 +65,7 @@
 					let ofc = new OffscreenCanvas(img.width, img.height);
 					let ofx = ofc.getContext("2d");
 					ofx.drawImage(img, 0, 0);
-					ofx.filter = "sepia(1)";
+					ofc.filter = "sepia(1)";
 					return ofc;
 				};
 				

@@ -37,8 +37,8 @@
 				
 				var cam = {x: 0, y: 0};
 				var lvl = [{x: 0, y: 0},{x: 1, y: 2}];
-				var colors = {bg: '#0099FF', grnd: '#0055BB'};
-				var player = {x: -1024, y: 0, xs: 10, ys: 0, r: 0, rs: 0, ground: false, grav: -1};
+				var colors = {bg: '#0099FF', grnd: '#0055BB', dbg: '', dgrnd: '', bgimg: '', grndimg: ''};
+				var player = {x: -1024, y: 0, xs: 10, ys: 0, r: 0, rs: 0, ground: false, grav: -1, img1: tint(imgs[0], '#00FF00'), img2: tint(imgs[0], '#00FFFF')};
 				
 				const imgs = document.getElementsByTagName("img");
 				const canv = document.getElementById("canvas").getContext("2d");
@@ -77,9 +77,12 @@
 					
 					
 					//draw bg
-					var tempimg = tint(imgs[4], colors.bg);
+					if (colors.bg != colors.dbg) {
+						colors.bgimg = tint(imgs[4], colors.bg);
+						colors.dbg = colors.bg;
+					};
 					for (let i = 0; i < 3; i++) {
-						canv.drawImage(tempimg, i * 1536 - ((cam.x / 5) % 1536) - 1024, cam.y / 5 - 1024, 1536, 1536);
+						canv.drawImage(colors.bgimg, i * 1536 - ((cam.x / 5) % 1536) - 1024, cam.y / 5 - 1024, 1536, 1536);
 					};
 					
 					//draw level
@@ -93,15 +96,18 @@
 					canv.rotate(player.r * Math.PI / 180);
 					canv.translate(-(player.x - cam.x + 30), -(cam.y - player.y - 60 + 30));
 					
-					canv.drawImage(tint(imgs[0], '#00FF00'), 900, 420, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
-					canv.drawImage(tint(imgs[0], '#FF0000'), 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					canv.drawImage(player.img2, 900, 420, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					canv.drawImage(player.img1, 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
 					
 					canv.setTransform(1, 0, 0, 1, 0, 0);
 					
 					//draw grnd
-					var tempimg = tint(imgs[5], colors.grnd);
+					if (colors.grnd != colors.dgrnd) {
+						colors.grndimg = tint(imgs[5], colors.grnd);
+						colors.dgrnd = colors.grnd;
+					};
 					for (let i = -1; i < 10; i++) {
-						canv.drawImage(tempimg, i * 256 - (cam.x % 256), cam.y, 256, 256);
+						canv.drawImage(colors.grndimg, i * 256 - (cam.x % 256), cam.y, 256, 256);
 					};
 				}, 33)
 			}, 1000); });

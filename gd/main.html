@@ -75,17 +75,19 @@
 					
 					player.x += player.xs;
 					
-					var sd = player.ys / Math.abs(player.ys);
-					player.ground = false;
-					for (let i = 0; i <= Math.abs(player.ys); i++) {
-						if (player.y + sd > 0) {
-							player.y += sd
-						} else {
-							player.ys = 0;
-							player.ground = true;
-							player.rs = 0;
-							player.r = Math.floor(player.r / 90);
-							break;
+					if (player.ys != 0) {
+						var sd = player.ys / Math.abs(player.ys);
+						player.ground = false;
+						for (let i = 0; i <= Math.abs(player.ys); i++) {
+							if (player.y + sd > 0) {
+								player.y += sd
+							} else {
+								player.ys = 0;
+								player.ground = true;
+								player.rs = 0;
+								player.r = Math.floor(player.r / 90);
+								break;
+							};
 						};
 					};
 					

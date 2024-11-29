@@ -79,7 +79,7 @@
 					player.x += player.xs;
 					
 					if (player.ys != 0) {
-						var sd = player.ys / Math.abs(player.ys);
+						var sd = player.ys / Math.abs(player.ys) * 2;
 						player.ground = false;
 						for (let i = 0; i <= Math.abs(player.ys); i++) {
 							if (player.y + sd > 0) {

@@ -74,6 +74,16 @@
 					
 					player.x += player.xs;
 					
+					var sd = player.ys / Math.abs(player.ys);
+					for (let i = 0; i <= Math.abs(player.ys); i++) {
+						if (player.y + sd > 0) {
+							player.y += sd
+						} else {
+							player.ys = 0;
+							break;
+						};
+					};
+					
 					player.r += player.rs;
 					player.r %= 360;
 					

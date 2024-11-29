@@ -47,7 +47,7 @@
 					let ofx2 = ofc2.getContext("2d");
 					ofx2.drawImage(img, 0, 0);
 					ofx2.globalCompositeOperation = "source-in";
-					ofx2.filter = "invert(1) brightness(1.1)";
+					ofx2.filter = "invert(1) brightness(1.3)";
 					ofx2.drawImage(ofc, 0, 0);
 					return ofc2;
 				};
@@ -61,7 +61,7 @@
 				
 				
 				var cam = {x: 0, y: 0};
-				var lvl = [{x: 0, y: 0},{x: 1, y: 2}];
+				var lvl = [{x: 0, y: 0},{x: 1, y: 0},{x: 2, y: 0}];
 				var colors = {bg: '#0099FF', grnd: '#0055BB', dbg: '', dgrnd: '', bgimg: '', grndimg: ''};
 				var player = {x: -1024, y: 0, xs: 15, ys: 0, r: 0, rs: 0, ground: false, grav: -5, img1: tint(imgs[0], '#00FF00'), img2: tint(imgs[0], '#00FFFF')};
 				
@@ -100,7 +100,8 @@
 					player.r %= 360;
 					
 					cam.x = player.x - 780;
-					cam.y = player.y + 542;
+					cam.y = player.y + 300;
+					cam.y = clamp(cam.y, 542, 100000);
 					
 					
 					//draw bg
@@ -115,7 +116,7 @@
 					//draw level
 					//canv.globalCompositeOperation = "lighter"; //blending
 					for (let i of lvl) {
-						canv.drawImage(imgs[0], 0, 0, 60, 60, i.x * 60 - cam.x, cam.y - i.y * 60 - 60, 60, 60);
+						canv.drawImage(imgs[0], 60, 0, 60, 60, i.x * 60 - cam.x, cam.y - i.y * 60 - 60, 60, 60);
 					};
 					
 					//draw player

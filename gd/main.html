@@ -114,6 +114,9 @@
 					for (let i = -1; i < 10; i++) {
 						canv.drawImage(colors.grndimg, i * 256 - (cam.x % 256), cam.y, 256, 256);
 					};
+					
+					//draw grnd line
+					canv.drawImage(imgs[3], 884, cam.y, 392, 1);
 				}, 33)
 			}, 1000); });
 		</script>

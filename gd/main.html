@@ -44,7 +44,7 @@
 				const canv = document.getElementById("canvas").getContext("2d");
 				
 				// https://stackoverflow.com/questions/35969656/how-can-i-generate-the-opposite-color-according-to-current-color
-				function invertColor(hex) {
+				/*function invertColor(hex) {
 					if (hex.indexOf('#') === 0) {
 						hex = hex.slice(1);
 					}
@@ -63,16 +63,17 @@
 					len = len || 2;
 					var zeros = new Array(len).join('0');
 					return (zeros + str).slice(-len);
-				}
+				}*/
 				
 				function tint(img, col) {
 					let ofc = new OffscreenCanvas(img.width, img.height);
 					let ofx = ofc.getContext("2d");
 					ofx.filter = "invert(1)";
 					ofx.drawImage(img, 0, 0);
-					ofx.filter = "none";
+					//ofx.filter = "none";
 					ofx.globalCompositeOperation = "lighter";
-					ofx.fillStyle = invertColor(col);
+					//ofx.fillStyle = invertColor(col);
+					ofx.fillStyle = col;
 					ofx.fillRect(0, 0, img.width, img.height);
 					let ofc2 = new OffscreenCanvas(img.width, img.height);
 					let ofx2 = ofc2.getContext("2d");

@@ -35,14 +35,6 @@
 					}
 				});
 				
-				var cam = {x: 0, y: 0};
-				var lvl = [{x: 0, y: 0},{x: 1, y: 2}];
-				var colors = {bg: '#0099FF', grnd: '#0055BB', dbg: '', dgrnd: '', bgimg: '', grndimg: ''};
-				var player = {x: -1024, y: 0, xs: 10, ys: 0, r: 0, rs: 0, ground: false, grav: -1, img1: tint(imgs[0], '#00FF00'), img2: tint(imgs[0], '#00FFFF')};
-				
-				const imgs = document.getElementsByTagName("img");
-				const canv = document.getElementById("canvas").getContext("2d");
-				
 				function tint(img, col) {
 					let ofc = new OffscreenCanvas(img.width, img.height);
 					let ofx = ofc.getContext("2d");
@@ -59,6 +51,19 @@
 					ofx2.drawImage(ofc, 0, 0);
 					return ofc2;
 				};
+				
+				const imgs = document.getElementsByTagName("img");
+				const canv = document.getElementById("canvas").getContext("2d");
+				
+				
+				var cam = {x: 0, y: 0};
+				var lvl = [{x: 0, y: 0},{x: 1, y: 2}];
+				var colors = {bg: '#0099FF', grnd: '#0055BB', dbg: '', dgrnd: '', bgimg: '', grndimg: ''};
+				var player = {x: -1024, y: 0, xs: 10, ys: 0, r: 0, rs: 0, ground: false, grav: -1, img1: tint(imgs[0], '#00FF00'), img2: tint(imgs[0], '#00FFFF')};
+				
+				
+				
+				
 				
 				setInterval(function () {
 					player.ys += player.grav;

@@ -47,7 +47,7 @@
 					let ofx2 = ofc2.getContext("2d");
 					ofx2.drawImage(img, 0, 0);
 					ofx2.globalCompositeOperation = "source-in";
-					ofx2.filter = "invert(1) grayscale(1)";
+					ofx2.filter = "invert(1) brightness(0.1)";
 					ofx2.drawImage(ofc, 0, 0);
 					return ofc2;
 				};

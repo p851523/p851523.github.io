@@ -52,6 +52,10 @@
 					return ofc2;
 				};
 				
+				function clamp(num, min, max) {
+					return (num > max) ? (max) : ((min > num) ? (min) : (num));
+				};
+				
 				const imgs = document.getElementsByTagName("img");
 				const canv = document.getElementById("canvas").getContext("2d");
 				
@@ -70,7 +74,6 @@
 					
 					if (mousedown && player.ground) {
 						player.ys = 14;
-						//player.rs = 10;
 					};
 					
 					player.x += player.xs;
@@ -92,6 +95,7 @@
 						};
 					};
 					
+					player.rs = clamp(player.rs, -1; 1);
 					player.r += player.rs;
 					player.r %= 360;
 					

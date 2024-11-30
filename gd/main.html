@@ -61,7 +61,8 @@
 				
 				
 				var cam = {x: 0, y: 0};
-				var lvl = [{x: 0, y: 0},{x: 1, y: 0},{x: 2, y: 0}];
+				const info = [{tx: 0, ty: 0, tw: 60, th: 60},{tx: 60, ty: 0, tw: 60, th: 60}]
+				var lvl = [{id: 0, x: 0, y: 0},{id: 0, x: 1, y: 0},{id: 1, x: 2, y: 0}];
 				var colors = {bg: '#0099FF', grnd: '#0055BB', dbg: '', dgrnd: '', bgimg: '', grndimg: ''};
 				var player = {x: -1024, y: 0, xs: 16, ys: 0, r: 0, rs: 0, ground: false, grav: -4, img1: tint(imgs[0], '#00FF00'), img2: tint(imgs[0], '#00FFFF')};
 				
@@ -116,7 +117,7 @@
 					//draw level
 					//canv.globalCompositeOperation = "lighter"; //blending
 					for (let i of lvl) {
-						canv.drawImage(imgs[0], 60, 0, 60, 60, i.x * 60 - cam.x, cam.y - i.y * 60 - 60, 60, 60);
+						canv.drawImage(imgs[0], info[i.id].tx, info[i.id].ty, info[i.id].tw, info[i.id].th, i.x * 60 - cam.x, cam.y - i.y * 60 - 60, info[i.id].tw, info[i.id].th);
 					};
 					
 					//draw player
@@ -139,7 +140,7 @@
 					};
 					
 					//draw grnd line
-					canv.drawImage(imgs[3], 492, cam.y, 392*3, 1*3);
+					canv.drawImage(imgs[3], 492, cam.y, 1176, 3);
 				}, 33)
 			}, 1000); });
 		</script>

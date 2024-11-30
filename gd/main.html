@@ -64,7 +64,9 @@
 				const info = [{tx: 0, ty: 0, tw: 60, th: 60},{tx: 60, ty: 0, tw: 60, th: 60}]
 				var lvl = [{id: 0, x: 0, y: 0},{id: 0, x: 1, y: 0},{id: 1, x: 2, y: 0}];
 				var colors = {bg: '#0099FF', grnd: '#0055BB', dbg: '', dgrnd: '', bgimg: '', grndimg: ''};
-				var player = {x: -1024, y: 0, xs: 16, ys: 0, r: 0, rs: 0, ground: false, grav: -4, img1: tint(imgs[0], '#00FF00'), img2: tint(imgs[0], '#00FFFF')};
+				var player = {x: -1024, y: 0, xs: 16, ys: 0, r: 0, rs: 0, ground: false, grav: -4, iconid: 0, col1: '#00FF00', col2: '#00FFFF', img1: '', img2: ''};
+				player.img1 = tint(imgs[0], player.col1);
+				player.img2 = tint(imgs[0], player.col2);
 				
 				
 				
@@ -125,8 +127,8 @@
 					canv.rotate(player.r * Math.PI / 180);
 					canv.translate(-(player.x - cam.x + 30), -(cam.y - player.y - 60 + 30));
 					
-					canv.drawImage(player.img2, 900, 420, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
-					canv.drawImage(player.img1, 900, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					canv.drawImage(player.img2, player.iconid*60, 420, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
+					canv.drawImage(player.img1, player.iconid*60, 360, 60, 60, player.x - cam.x, cam.y - player.y - 60, 60, 60);
 					
 					canv.setTransform(1, 0, 0, 1, 0, 0);
 					

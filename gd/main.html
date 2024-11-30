@@ -118,7 +118,7 @@
 					player.r += player.rs;
 					player.r %= 360;
 					
-					cam.x = player.x - 700;
+					cam.x = player.x - 500;
 					cam.y = player.y + 300;
 					cam.y = clamp(cam.y, 542, 100000);
 					
@@ -129,7 +129,7 @@
 						colors.dbg = colors.bg;
 					};
 					for (let i = 0; i < 2; i++) {
-						canv.drawImage(colors.bgimg, i * 1536 - ((cam.x / 5) % 1536) - 1024, cam.y / 5 - 950, 1536, 1536);
+						canv.drawImage(colors.bgimg, i * 1536 - ((cam.x / 5) % 1536), cam.y / 5 - 950, 1536, 1536);
 					};
 					
 					//draw level
@@ -153,7 +153,7 @@
 						colors.grndimg = tint(imgs[5], colors.grnd);
 						colors.dgrnd = colors.grnd;
 					};
-					for (let i = -1; i < 10; i++) {
+					for (let i = -1; i < 6; i++) {
 						canv.drawImage(colors.grndimg, i * 256 - (cam.x % 256), cam.y, 256, 256);
 					};
 					

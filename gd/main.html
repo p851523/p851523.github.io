@@ -97,7 +97,7 @@
 					var dx = Math.abs(player.xs);
 					var dy = Math.abs(player.ys);
 					player.ground = false;
-					for (let i = 0; i <= Math.max(player.xs, player.ys); i++) {
+					for (let i = 0; i <= Math.max(Math.abs(player.xs), Math.abs(player.ys)); i++) {
 						if (dx > 0) {
 							dx--;
 							var tc = true;

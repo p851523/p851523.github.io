@@ -130,7 +130,7 @@
 								var tc = true;
 								for (let i of lvls[1]) {
 									if (coll(player.x, player.y + sy, 60, 60, i.x*60, i.y*60, 60, 60)) {
-										tc = 0;
+										tc = 'ded';
 										break;
 									};
 								};
@@ -147,10 +147,10 @@
 									player.y += sy;
 									player.rs -= player.grav * 1.5;
 								} else {
-									if (tc == 0) {
-										/*player = {};
+									if (tc == 'ded') {
+										player = {};
 										dx = 0;
-										dy = 0;*/
+										dy = 0;
 										break;
 									} else {
 										if (player.ys < 0) {

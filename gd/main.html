@@ -17,7 +17,7 @@
 		<img crossorigin="anonymous" src="assets/grnd/0.png">
 		
 		<div style="width: 100%; height: 100%; display: flex; justify-content: center">
-			<canvas id="canvas" width="2160" height="720" style="aspect-ratio: 3 / 1; height: 100%/*; image-rendering: pixelated*/"></canvas>
+			<canvas id="canvas" width="1280" height="720" style="aspect-ratio: 16 / 9; height: 100%/*; image-rendering: pixelated*/"></canvas>
 		</div>
 		<script>
 			window.addEventListener("load", function () { setTimeout(function () {
@@ -61,10 +61,26 @@
 				
 				
 				var cam = {x: 0, y: 0};
-				const info = [{tx: 0, ty: 0, tw: 60, th: 60},{tx: 60, ty: 0, tw: 60, th: 60}]
+				const info = [{tx: 0, ty: 0, tw: 60, th: 60, type: 1},{tx: 60, ty: 0, tw: 60, th: 60, type: 2}] //type: 0-none / 1-solid / 2-deadly
 				var lvl = [{id: 0, x: 0, y: 0},{id: 0, x: 1, y: 0},{id: 1, x: 2, y: 0}];
+				var lvl0 = [];
+				var lvl1 = [];
+				var lvl2 = [];
+				for (let i of lvl) {
+					switch(info[i.id].type) {
+						case 1:
+							lvl1.push(i);
+							break;
+						case 2:
+							lvl2.push(i);
+							break;
+						default:
+							lvl0.push(i);
+							break;
+					};
+				};
 				var colors = {bg: '#0099FF', grnd: '#0055BB', dbg: '', dgrnd: '', bgimg: '', grndimg: ''};
-				var player = {x: -1024, y: 0, xs: 16, ys: 0, r: 0, rs: 0, ground: false, grav: -4, iconid: 0, col1: '#00FF00', col2: '#00FFFF', img1: '', img2: ''};
+				var player = {x: -1024, y: 0, xs: 16, ys: 0, r: 0, rs: 0, ground: false, grav: -4, iconid: 2, col1: '#00FF00', col2: '#00FFFF', img1: '', img2: ''};
 				player.img1 = tint(imgs[0], player.col1);
 				player.img2 = tint(imgs[0], player.col2);
 				
@@ -102,7 +118,7 @@
 					player.r += player.rs;
 					player.r %= 360;
 					
-					cam.x = player.x - 780;
+					cam.x = player.x - 700;
 					cam.y = player.y + 300;
 					cam.y = clamp(cam.y, 542, 100000);
 					
@@ -112,7 +128,7 @@
 						colors.bgimg = tint(imgs[4], colors.bg);
 						colors.dbg = colors.bg;
 					};
-					for (let i = 0; i < 3; i++) {
+					for (let i = 0; i < 2; i++) {
 						canv.drawImage(colors.bgimg, i * 1536 - ((cam.x / 5) % 1536) - 1024, cam.y / 5 - 950, 1536, 1536);
 					};
 					
@@ -142,7 +158,7 @@
 					};
 					
 					//draw grnd line
-					canv.drawImage(imgs[3], 492, cam.y, 1176, 3);
+					canv.drawImage(imgs[3], 52/*492*/, cam.y, 1176, 3);
 				}, 33)
 			}, 1000); });
 		</script>

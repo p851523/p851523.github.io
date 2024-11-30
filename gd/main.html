@@ -92,39 +92,62 @@
 						player.ys = 30;
 					};
 					
-					player.x += player.xs;
-					
-					if (player.ys != 0) {
-						var sd = player.ys / Math.abs(player.ys);
-						player.ground = false;
-						for (let i = 0; i <= Math.abs(player.ys); i++) {
-							if (player.y + sd > 0) {
+					var sx = player.xs / Math.abs(player.xs);
+					var sy = player.ys / Math.abs(player.ys);
+					var dx = Math.abs(player.xs);
+					var dy = Math.abs(player.ys);
+					player.ground = false;
+					for (let i = 0; i <= Math.max(player.xs, player.ys); i++) {
+						if (dx > 0) {
+							dx--;
+							var tc = true;
+							for (let i of lvls) {
+								if (coll(player.x + sx - 10, player.y - 10, 20, 20, i.x*60, i.y*60, 60, 60)) {
+									tc = false;
+									break;
+								};
+							};
+							if (tc) {
+								player.x += sx;
+							} else {
+								player.xs = 0;
+								dx = 0;
+								break;
+							};
+						};
+						if (dy > 0) {
+							dy--;
+							if (player.y + sy > 0) {
 								var tc = true;
 								for (let i of lvls) {
-									if (coll(player.x, player.y, 60, 60, i.x*60, i.y*60, 60, 60)) {
+									if (coll(player.x, player.y + sy, 60, 60, i.x*60, i.y*60, 60, 60)) {
 										tc = false;
 										break;
 									};
 								};
 								if (tc) {
-									player.y += sd;
+									player.y += sy;
 									player.rs -= player.grav * 1.5;
 								} else {
 									player.ys = 0;
 									player.ground = true;
 									player.rs = 0;
 									player.r = Math.round(player.r / 90) * 90;
+									dy = 0;
 									break;
 								};
 							} else {
+								player.y = 0;
 								player.ys = 0;
 								player.ground = true;
 								player.rs = 0;
 								player.r = Math.round(player.r / 90) * 90;
+								dy = 0;
 								break;
 							};
 						};
 					};
+					
 					
 					player.rs = clamp(player.rs, -11.5, 11.5);
 					player.r += player.rs;

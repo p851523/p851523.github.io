@@ -108,7 +108,7 @@
 								};
 								if (tc) {
 									player.y += sd;
-									player.rs += 0.5;
+									player.rs += 1;
 								} else {
 									player.ys = 0;
 									player.ground = true;
@@ -126,7 +126,7 @@
 						};
 					};
 					
-					player.rs = clamp(player.rs, -12, 12);
+					player.rs = clamp(player.rs, -10, 10);
 					player.r += player.rs;
 					player.r %= 360;
 					

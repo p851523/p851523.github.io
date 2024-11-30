@@ -108,7 +108,7 @@
 								};
 								if (tc) {
 									player.y += sd;
-									player.rs += player.ys / player.grav;
+									player.rs -= player.grav;
 								} else {
 									player.ys = 0;
 									player.ground = true;
